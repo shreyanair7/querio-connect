@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "@/hooks/useTranslation";
 import { MessageSquare, Clock, Bell, HelpCircle, Star, Home } from "lucide-react";
 import { ChatView } from "@/components/dashboard/ChatView";
@@ -12,23 +11,36 @@ import { LanguageSelector } from "@/components/LanguageSelector";
 
 type DashboardView = "welcome" | "chat" | "history" | "notices" | "faq" | "feedback";
 
+const pathToView: Record<string, DashboardView> = {
+  "/dashboard": "welcome",
+  "/dashboard/chat": "chat",
+  "/dashboard/history": "history",
+  "/dashboard/notices": "notices",
+  "/dashboard/faq": "faq",
+  "/dashboard/feedback": "feedback",
+  "/notices": "notices",
+  "/faq": "faq",
+};
+
 const Dashboard = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [activeView, setActiveView] = useState<DashboardView>("welcome");
+  const location = useLocation();
 
-  const menuItems: { key: DashboardView; icon: typeof MessageSquare; labelKey: string }[] = [
-    { key: "chat", icon: MessageSquare, labelKey: "chat" },
-    { key: "history", icon: Clock, labelKey: "history" },
-    { key: "notices", icon: Bell, labelKey: "notices" },
-    { key: "faq", icon: HelpCircle, labelKey: "faq" },
-    { key: "feedback", icon: Star, labelKey: "feedback" },
+  const activeView: DashboardView = pathToView[location.pathname] || "welcome";
+
+  const menuItems: { key: DashboardView; path: string; icon: typeof MessageSquare; labelKey: string }[] = [
+    { key: "chat", path: "/dashboard/chat", icon: MessageSquare, labelKey: "chat" },
+    { key: "history", path: "/dashboard/history", icon: Clock, labelKey: "history" },
+    { key: "notices", path: "/dashboard/notices", icon: Bell, labelKey: "notices" },
+    { key: "faq", path: "/dashboard/faq", icon: HelpCircle, labelKey: "faq" },
+    { key: "feedback", path: "/dashboard/feedback", icon: Star, labelKey: "feedback" },
   ];
 
   const viewMap: Record<DashboardView, React.ReactNode> = {
-    welcome: <WelcomeView onStartChat={() => setActiveView("chat")} />,
+    welcome: <WelcomeView onStartChat={() => navigate("/dashboard/chat")} />,
     chat: <ChatView />,
-    history: <HistoryView onOpenChat={() => setActiveView("chat")} />,
+    history: <HistoryView onOpenChat={() => navigate("/dashboard/chat")} />,
     notices: <NoticesView />,
     faq: <FAQView />,
     feedback: <FeedbackView />,
@@ -45,7 +57,7 @@ const Dashboard = () => {
           {menuItems.map((item) => (
             <button
               key={item.key}
-              onClick={() => setActiveView(item.key)}
+              onClick={() => navigate(item.path)}
               className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium transition-colors ${
                 activeView === item.key
                   ? "bg-sidebar-accent text-sidebar-accent-foreground"

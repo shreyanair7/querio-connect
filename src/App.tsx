@@ -7,8 +7,6 @@ import { LanguageProvider } from "@/contexts/LanguageContext";
 import { ChatProvider } from "@/contexts/ChatContext";
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
-import Notices from "./pages/Notices";
-import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,9 +21,14 @@ const App = () => (
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
-              <Route path="/notices" element={<Notices />} />
-              <Route path="/faq" element={<FAQ />} />
               <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/dashboard/chat" element={<Dashboard />} />
+              <Route path="/dashboard/history" element={<Dashboard />} />
+              <Route path="/dashboard/notices" element={<Dashboard />} />
+              <Route path="/dashboard/faq" element={<Dashboard />} />
+              <Route path="/dashboard/feedback" element={<Dashboard />} />
+              <Route path="/notices" element={<Dashboard />} />
+              <Route path="/faq" element={<Dashboard />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
