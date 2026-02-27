@@ -15,8 +15,8 @@ export const Navbar = () => {
           <div className="hidden md:flex items-center gap-6 text-sm font-medium">
             <Link to="/" className="text-muted-foreground hover:text-foreground transition-colors">{t("home")}</Link>
             <a href="/#features" className="text-muted-foreground hover:text-foreground transition-colors">{t("features")}</a>
-            <Link to="/notices" className="text-muted-foreground hover:text-foreground transition-colors">{t("notices")}</Link>
-            <Link to="/faq" className="text-muted-foreground hover:text-foreground transition-colors">{t("faq")}</Link>
+            <Link to="/dashboard/notices" className="text-muted-foreground hover:text-foreground transition-colors">{t("notices")}</Link>
+            <Link to="/dashboard/faq" className="text-muted-foreground hover:text-foreground transition-colors">{t("faq")}</Link>
           </div>
           <LanguageSelector />
           <Link
