@@ -1,6 +1,7 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from "@/hooks/useTranslation";
-import { MessageSquare, Clock, Bell, HelpCircle, Star, Home } from "lucide-react";
+import { useAuth } from "@/contexts/AuthContext";
+import { MessageSquare, Clock, Bell, HelpCircle, Star, LogOut } from "lucide-react";
 import { ChatView } from "@/components/dashboard/ChatView";
 import { HistoryView } from "@/components/dashboard/HistoryView";
 import { NoticesView } from "@/components/dashboard/NoticesView";
@@ -24,6 +25,7 @@ const pathToView: Record<string, DashboardView> = {
 
 const Dashboard = () => {
   const { t } = useTranslation();
+  const { userEmail, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -37,6 +39,11 @@ const Dashboard = () => {
     { key: "feedback", path: "/dashboard/feedback", icon: Star, labelKey: "feedback" },
   ];
 
+  const handleLogout = () => {
+    logout();
+    navigate("/");
+  };
+
   const viewMap: Record<DashboardView, React.ReactNode> = {
     welcome: <WelcomeView onStartChat={() => navigate("/dashboard/chat")} />,
     chat: <ChatView />,
@@ -48,10 +55,12 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen flex bg-muted/30">
-      {/* Sidebar */}
       <aside className="w-60 bg-primary text-primary-foreground flex flex-col shrink-0">
         <div className="p-5 border-b border-primary-foreground/10">
           <h1 className="text-lg font-bold">Querio</h1>
+          {userEmail && (
+            <p className="text-xs text-primary-foreground/60 mt-1 truncate">{userEmail}</p>
+          )}
         </div>
         <nav className="flex-1 p-3 space-y-1">
           {menuItems.map((item) => (
@@ -72,16 +81,15 @@ const Dashboard = () => {
         <div className="p-3 border-t border-primary-foreground/10 space-y-2">
           <LanguageSelector className="w-full bg-sidebar-accent border-sidebar-border text-primary-foreground" />
           <button
-            onClick={() => navigate("/")}
+            onClick={handleLogout}
             className="w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm font-medium text-primary-foreground/70 hover:bg-sidebar-accent/50 hover:text-primary-foreground transition-colors"
           >
-            <Home className="w-4 h-4" />
-            {t("home")}
+            <LogOut className="w-4 h-4" />
+            {t("logout")}
           </button>
         </div>
       </aside>
 
-      {/* Main Content */}
       <main className="flex-1 overflow-auto">
         <div className="animate-fade-in h-full">
           {viewMap[activeView]}
