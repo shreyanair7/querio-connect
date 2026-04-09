@@ -4,20 +4,20 @@ Querio is a multilingual university query resolution platform designed to bridge
 
 ---
 
-## 🚀 Features
+## Features
 
-- 🔐 Simulated Authentication (Login / Registration)
-- 🌍 Multilingual UI (English, Hindi, Tamil, Telugu)
-- 🤖 Simulated AI Chatbot with language detection
-- 🕓 Chat History (Session-based)
-- 📢 Notice & Announcement Board (Expandable cards)
-- ❓ FAQ Section (Accordion layout)
-- ⭐ Feedback & Rating System
-- 📱 Responsive, corporate UI (Navy + White theme)
+- Simulated Authentication (Login / Registration)
+- Multilingual UI (English, Hindi, Tamil, Telugu)
+- Simulated AI Chatbot with language detection
+- Chat History (Session-based)
+- Notice & Announcement Board (Expandable cards)
+- FAQ Section (Accordion layout)
+- Feedback & Rating System
+- Responsive, corporate UI (Navy + White theme)
 
 ---
 
-## 🏗️ Project Structure
+## Project Structure
 
 The application follows a Single Page Application (SPA) architecture with dynamic routing and state-based UI rendering.
 
@@ -34,7 +34,7 @@ The application follows a Single Page Application (SPA) architecture with dynami
 
 ---
 
-## 🌐 Language Support
+## Language Support
 
 The platform includes a UI language selector that dynamically translates:
 
@@ -47,7 +47,7 @@ Translations are currently hardcoded for simulation purposes.
 
 ---
 
-## ⚙️ Tech Overview
+## Tech Overview
 
 - Frontend-only implementation
 - Local state simulation (no backend)
@@ -57,7 +57,7 @@ Translations are currently hardcoded for simulation purposes.
 
 ---
 
-## 🎯 Purpose
+## Purpose
 
 Querio was developed as part of a Software Engineering and Project Management project to demonstrate:
 
