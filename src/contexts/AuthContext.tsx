@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -15,8 +15,17 @@ const AuthContext = createContext<AuthContextType>({
 });
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userEmail, setUserEmail] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return localStorage.getItem("querio_auth") === "true";
+  });
+  const [userEmail, setUserEmail] = useState(() => {
+    return localStorage.getItem("querio_email") || "";
+  });
+
+  useEffect(() => {
+    localStorage.setItem("querio_auth", String(isAuthenticated));
+    localStorage.setItem("querio_email", userEmail);
+  }, [isAuthenticated, userEmail]);
 
   const login = (email: string) => {
     setIsAuthenticated(true);
@@ -26,6 +35,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = () => {
     setIsAuthenticated(false);
     setUserEmail("");
+    localStorage.removeItem("querio_auth");
+    localStorage.removeItem("querio_email");
   };
 
   return (
