@@ -13,7 +13,7 @@ Querio is a multilingual university query resolution platform designed to bridge
 - Notice & Announcement Board (Expandable cards)
 - FAQ Section (Accordion layout)
 - Feedback & Rating System
-- Responsive, corporate UI (Navy + White theme)
+- Responsive, corporate UI
 
 ---
 
@@ -42,8 +42,6 @@ The platform includes a UI language selector that dynamically translates:
 - Notices
 - FAQ content
 - Chatbot default responses
-
-Translations are currently hardcoded for simulation purposes.
 
 ---
 
